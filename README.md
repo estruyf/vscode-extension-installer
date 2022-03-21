@@ -2,6 +2,8 @@
 
 The extension came to life when I was looking for a way to install extensions that were not ready yet to be released to the marketplace. In order to release new updates quickly, without the need to give colleagues/testers/users a new `vsix` file each time, I decided to create a simple extension installer.
 
+> **Info**: The extension will hourly check for new updates and prompt you to update if there is one. 
+
 ## Usage
 
 Follow the next steps in order to use the extension:
@@ -25,6 +27,8 @@ The API to retrieve the extension from is something you will need to implement y
 
 ```json
 {
+  "id": "<publisher>.<name>",
+  "displayName": "<displayName>",
   "name": "<extension-name>",
   "download": "<url-to-download-the-extension>"
 }

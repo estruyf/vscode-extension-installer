@@ -4,17 +4,17 @@
 	"description": "This is an alternative way to install extensions. It allows you/your company to install new versions of your extension(s) which are not ready yet to be released to the marketplace.",
 	"version": "0.0.1",
 	"preview": true,
-  "publisher": "eliostruyf",
-  "galleryBanner": {
-    "color": "#0e131f",
-    "theme": "dark"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/estruyf/vscode-extension-installer"
-  },
-  "license": "MIT",
-  "author": "Elio Struyf <elio@struyfconsulting.be> (https://www.eliostruyf.com)",
+	"publisher": "eliostruyf",
+	"galleryBanner": {
+		"color": "#0e131f",
+		"theme": "dark"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/estruyf/vscode-extension-installer"
+	},
+	"license": "MIT",
+	"author": "Elio Struyf <elio@struyfconsulting.be> (https://www.eliostruyf.com)",
 	"engines": {
 		"vscode": "^1.65.0"
 	},
@@ -22,7 +22,9 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extensionInstaller.checkForUpdates"
+		"onCommand:extensionInstaller.checkForUpdates",
+		"onCommand:extensionInstaller.backgroundCheck",
+		"onStartupFinished"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -31,8 +33,21 @@
 				"command": "extensionInstaller.checkForUpdates",
 				"title": "Check for updates",
 				"category": "Extension Installer"
+			},
+			{
+				"command": "extensionInstaller.backgroundCheck",
+				"title": "Perform background check",
+				"category": "Extension Installer"
 			}
 		],
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "extensionInstaller.backgroundCheck",
+					"when": "true"
+				}
+			]
+		},
 		"configuration": {
 			"title": "Extension Installer",
 			"properties": {
@@ -60,6 +75,7 @@
 	},
 	"devDependencies": {
 		"@types/axios": "^0.14.0",
+		"@types/cron": "^1.7.3",
 		"@types/glob": "^7.2.0",
 		"@types/mocha": "^9.0.0",
 		"@types/node": "14.x",
@@ -67,6 +83,7 @@
 		"@typescript-eslint/eslint-plugin": "^5.9.1",
 		"@typescript-eslint/parser": "^5.9.1",
 		"@vscode/test-electron": "^2.0.3",
+		"cron": "^1.8.2",
 		"eslint": "^8.6.0",
 		"glob": "^7.2.0",
 		"mocha": "^9.1.3",
