@@ -85,7 +85,11 @@ export function activate(context: ExtensionContext) {
 							writeFileSync(crntFilePath, pkgResponse.data, { encoding: null });
 							await commands.executeCommand('workbench.extensions.installExtension', Uri.file(crntFilePath));
 
-							window.showInformationMessage(`Extension Installer: Great news! ${response.data.name} got installed.`);
+							window.showInformationMessage(`Extension Installer: Great news! ${response.data.name} got installed.`, 'Reload window').then(async (result) => {
+								if (result === 'Reload window') {
+									await commands.executeCommand('workbench.action.reloadWindow');
+								}
+							});
 							logger.info(`Great news! ${response.data.name} got installed.`);
 						} else {
 							window.showErrorMessage(`Extension Installer: Failed to fetch package - ${response.data.name}`);
