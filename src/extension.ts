@@ -128,8 +128,25 @@ export function activate(context: ExtensionContext) {
                 const blob = await pkgResponse.blob();
                 const arrayBuffer = await blob.arrayBuffer();
                 const uint8Array = new Uint8Array(arrayBuffer);
-                crntFilePath = Uri.joinPath(context.extensionUri, data.name);
-                await writeFile(crntFilePath, uint8Array);
+
+                try {
+                  crntFilePath = Uri.joinPath(context.extensionUri, data.name);
+                  await writeFile(crntFilePath, uint8Array);
+                } catch (err) {
+                  logger.warning(
+                    `Failed to write in extensionUri, trying workspace folder...`
+                  );
+                  const folders = workspace.workspaceFolders;
+                  if (folders && folders.length > 0) {
+                    crntFilePath = Uri.joinPath(folders[0].uri, data.name);
+                    await writeFile(crntFilePath, uint8Array);
+                  } else {
+                    throw new Error(
+                      "No workspace folder available to write the file."
+                    );
+                  }
+                }
+
                 await commands.executeCommand(
                   "workbench.extensions.installExtension",
                   crntFilePath

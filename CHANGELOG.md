@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.0.5]
+
+- Added a fallback for the web extension installation
+
 ## [0.0.4]
 
 - Added web extension support
