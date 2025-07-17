@@ -2,7 +2,7 @@
   "name": "vscode-extension-installer",
   "displayName": "Extension Installer",
   "description": "This is an alternative way to install extensions. It allows you/your company to install new versions of your extension(s) which are not ready yet to be released to the marketplace.",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "preview": true,
   "publisher": "eliostruyf",
   "galleryBanner": {
