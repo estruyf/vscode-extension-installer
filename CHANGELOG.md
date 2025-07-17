@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.0.6]
+
+- Enhanced file writing logic to fallback through `globalStorageUri` before workspace folder
+
 ## [0.0.5]
 
 - Added a fallback for the web extension installation

@@ -130,20 +130,35 @@ export function activate(context: ExtensionContext) {
                 const uint8Array = new Uint8Array(arrayBuffer);
 
                 try {
+                  // Try to write the file in the extensionUri first
                   crntFilePath = Uri.joinPath(context.extensionUri, data.name);
                   await writeFile(crntFilePath, uint8Array);
                 } catch (err) {
                   logger.warning(
-                    `Failed to write in extensionUri, trying workspace folder...`
+                    `Failed to write in extensionUri, trying globalStorageUri...`
                   );
-                  const folders = workspace.workspaceFolders;
-                  if (folders && folders.length > 0) {
-                    crntFilePath = Uri.joinPath(folders[0].uri, data.name);
-                    await writeFile(crntFilePath, uint8Array);
-                  } else {
-                    throw new Error(
-                      "No workspace folder available to write the file."
+                  try {
+                    // If that fails, try to write in the globalStorageUri
+                    crntFilePath = Uri.joinPath(
+                      context.globalStorageUri,
+                      data.name
                     );
+                    await writeFile(crntFilePath, uint8Array);
+                  } catch (err) {
+                    logger.warning(
+                      `Failed to write in globalStorageUri, trying workspace folder...`
+                    );
+
+                    // If that fails, try to write in the workspace folder
+                    const folders = workspace.workspaceFolders;
+                    if (folders && folders.length > 0) {
+                      crntFilePath = Uri.joinPath(folders[0].uri, data.name);
+                      await writeFile(crntFilePath, uint8Array);
+                    } else {
+                      throw new Error(
+                        "No workspace folder available to write the file."
+                      );
+                    }
                   }
                 }
 
