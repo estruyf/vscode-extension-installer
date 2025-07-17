@@ -2,7 +2,7 @@
 
 The extension came to life when I was looking for a way to install extensions that were not ready yet to be released to the marketplace. In order to release new updates quickly, without the need to give colleagues/testers/users a new `vsix` file each time, I decided to create a simple extension installer.
 
-> **Info**: The extension will hourly check for new updates and prompt you to update if there is one. 
+> **Info**: The extension will hourly check for new updates and prompt you to update if there is one.
 
 ## Usage
 
@@ -39,3 +39,7 @@ The API to retrieve the extension from is something you will need to implement y
 In case there are issues with the extension, open the **Output** view, and check the `Extension Installer` output.
 
 ![](./assets/readme/output.png)
+
+<br />
+
+![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2Festruyf%2Fvscode-extension-installer&countColor=%23263759)

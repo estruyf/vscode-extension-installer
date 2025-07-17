@@ -1,98 +1,106 @@
 {
-	"name": "vscode-extension-installer",
-	"displayName": "Extension Installer",
-	"description": "This is an alternative way to install extensions. It allows you/your company to install new versions of your extension(s) which are not ready yet to be released to the marketplace.",
-	"version": "0.0.3",
-	"preview": true,
-	"publisher": "eliostruyf",
-	"galleryBanner": {
-		"color": "#0e131f",
-		"theme": "dark"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/estruyf/vscode-extension-installer"
-	},
-	"license": "MIT",
-	"author": "Elio Struyf <elio@struyfconsulting.be> (https://www.eliostruyf.com)",
-	"engines": {
-		"vscode": "^1.65.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onCommand:extensionInstaller.checkForUpdates",
-		"onCommand:extensionInstaller.backgroundCheck",
-		"onStartupFinished"
-	],
-	"main": "./dist/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "extensionInstaller.checkForUpdates",
-				"title": "Check for updates",
-				"category": "Extension Installer"
-			},
-			{
-				"command": "extensionInstaller.backgroundCheck",
-				"title": "Perform background check",
-				"category": "Extension Installer"
-			}
-		],
-		"menus": {
-			"commandPalette": [
-				{
-					"command": "extensionInstaller.backgroundCheck",
-					"when": "true"
-				}
-			]
-		},
-		"configuration": {
-			"title": "Extension Installer",
-			"properties": {
-				"extensionInstaller.apiUrls": {
-					"type": "array",
-					"description": "The URL(s) of the extension installer API(s)",
-					"default": [],
-					"items": {
-						"type": "string"
-					}
-				}
-			}
-		}
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run package",
-		"compile": "webpack",
-		"watch": "webpack --watch",
-		"package": "webpack --mode production --devtool hidden-source-map",
-		"compile-tests": "tsc -p . --outDir out",
-		"watch-tests": "tsc -p . -w --outDir out",
-		"pretest": "npm run compile-tests && npm run compile && npm run lint",
-		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/axios": "^0.14.0",
-		"@types/cron": "^1.7.3",
-		"@types/glob": "^7.2.0",
-		"@types/mocha": "^9.0.0",
-		"@types/node": "14.x",
-		"@types/vscode": "^1.65.0",
-		"@typescript-eslint/eslint-plugin": "^5.9.1",
-		"@typescript-eslint/parser": "^5.9.1",
-		"@vscode/test-electron": "^2.0.3",
-		"cron": "^1.8.2",
-		"eslint": "^8.6.0",
-		"glob": "^7.2.0",
-		"mocha": "^9.1.3",
-		"ts-loader": "^9.2.6",
-		"typescript": "^4.5.4",
-		"webpack": "^5.66.0",
-		"webpack-cli": "^4.9.1"
-	},
-	"dependencies": {
-		"axios": "^0.26.1"
-	}
+  "name": "vscode-extension-installer",
+  "displayName": "Extension Installer",
+  "description": "This is an alternative way to install extensions. It allows you/your company to install new versions of your extension(s) which are not ready yet to be released to the marketplace.",
+  "version": "0.0.3",
+  "preview": true,
+  "publisher": "eliostruyf",
+  "galleryBanner": {
+    "color": "#0e131f",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/estruyf/vscode-extension-installer"
+  },
+  "license": "MIT",
+  "author": "Elio Struyf <elio@struyfconsulting.be> (https://www.eliostruyf.com)",
+  "engines": {
+    "vscode": "^1.84.0"
+  },
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "browser": "./dist/web/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extensionInstaller.checkForUpdates",
+        "title": "Check for updates",
+        "category": "Extension Installer"
+      },
+      {
+        "command": "extensionInstaller.backgroundCheck",
+        "title": "Perform background check",
+        "category": "Extension Installer"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "extensionInstaller.backgroundCheck",
+          "when": "true"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Extension Installer",
+      "properties": {
+        "extensionInstaller.apiUrls": {
+          "type": "array",
+          "description": "The URL(s) of the extension installer API(s)",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package && npm run package:web",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile:web": "webpack --config webpack.web.config.js",
+    "watch:web": "webpack --config webpack.web.config.js --watch",
+    "package:web": "webpack --config webpack.web.config.js --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/cron": "^1.7.3",
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^20.19.8",
+    "@types/vscode": "^1.84.0",
+    "@typescript-eslint/eslint-plugin": "^5.9.1",
+    "@typescript-eslint/parser": "^5.9.1",
+    "@vscode/test-electron": "^2.0.3",
+    "cron": "^1.8.2",
+    "eslint": "^8.6.0",
+    "glob": "^7.2.0",
+    "mocha": "^9.1.3",
+    "ts-loader": "^9.2.6",
+    "typescript": "^5.8.3",
+    "webpack": "^5.66.0",
+    "webpack-cli": "^4.9.1"
+  },
+  "dependencies": {
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "util": "^0.12.5"
+  }
 }
